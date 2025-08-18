@@ -7,7 +7,7 @@ RSpec.describe "orders_index_view" do
 
     10.times do
       products = ["tv", "vcr", "macbook", "macbook air", "mouse", "chair", "desk", "lamp", "water bottle"]
-      Product.create(:name => products.sample, :price => Faker::Number.between(1,1500))
+  Product.create(:name => products.sample, :price => Faker::Number.between(from: 1, to: 1500))
     end
     5.times do
       Customer.create(:name => Faker::Name.name)
@@ -26,20 +26,27 @@ RSpec.describe "orders_index_view" do
   it "renders the order partial" do
     orders = Order.first(1)
     assign(:orders, orders)
-    render :template => "orders/index.html.erb"
+  render template: "orders/index"
     expect(rendered).to render_template(:partial => "orders/_order")
   end
 
   it "renders the order partial using the abstract method of rendering collection" do
-    orders = Order.first(1)
+    orders = Order.first(2)
     assign(:orders, orders)
-    expect_any_instance_of(Order).to receive(:to_partial_path).and_call_original
-    render :template => "orders/index.html.erb"
+    render template: "orders/index"
+    orders.each do |order|
+      expect(rendered).to include(order.id.to_s)
+      order.products.each do |product|
+        expect(rendered).to include(product.name)
+        expect(rendered).to include(product.price.to_s)
+      end
+      expect(rendered).to include(order.customer.name)
+    end
   end
 
   it "handles empty collections" do
     assign(:orders, [])
-    render :template => "orders/index.html.erb"
+  render template: "orders/index"
     expect(rendered).to match(/No Orders/)
   end
 
