@@ -1,4 +1,4 @@
-class CreateOrderedproducts < ActiveRecord::Migration
+class CreateOrderedproducts < ActiveRecord::Migration[7.1]
   def change
     create_table :ordered_products do |t|
       t.integer :product_id

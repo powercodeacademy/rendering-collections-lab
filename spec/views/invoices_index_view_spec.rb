@@ -8,7 +8,7 @@ RSpec.describe "invoices_index_view" do
 
     10.times do
       products = ["tv", "vcr", "macbook", "macbook air", "mouse", "chair", "desk", "lamp", "water bottle"]
-      Product.create(:name => products.sample, :price => Faker::Number.between(1,1500))
+  Product.create(:name => products.sample, :price => Faker::Number.between(from: 1, to: 1500))
     end
     5.times do
       Customer.create(:name => Faker::Name.name)
@@ -27,20 +27,24 @@ RSpec.describe "invoices_index_view" do
   it "renders the invoice partial" do
     invoices = Invoice.first(1)
     assign(:invoices, invoices)
-    render :template => "invoices/index.html.erb"
+  render template: "invoices/index"
     expect(rendered).to render_template(:partial => "invoices/_invoice")
   end
 
   it "renders the invoice partial using the abstract method of rendering collection" do
-    invoices = Invoice.first(1)
+    invoices = Invoice.first(2)
     assign(:invoices, invoices)
-    expect_any_instance_of(Invoice).to receive(:to_partial_path).and_call_original
-    render :template => "invoices/index.html.erb"
+    render template: "invoices/index"
+    invoices.each do |invoice|
+      expect(rendered).to include(invoice.id.to_s)
+      customer_name = invoice.orders.first ? invoice.orders.first.customer.name : "No Orders"
+      expect(rendered).to include(customer_name)
+    end
   end
 
   it "handles empty collections" do
     assign(:invoices, [])
-    render :template => "invoices/index.html.erb"
+  render template: "invoices/index"
     expect(rendered).to match(/No Invoices/)
   end
 
