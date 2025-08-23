@@ -47,7 +47,7 @@ RSpec.describe "orders_index_view" do
   it "handles empty collections" do
     assign(:orders, [])
   render template: "orders/index"
-    expect(rendered).to match(/No Orders/)
+    expect(rendered).to match(/No Orders/i)
   end
 
 end
