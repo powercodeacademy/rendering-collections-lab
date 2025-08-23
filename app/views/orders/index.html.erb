@@ -3,17 +3,8 @@
   <tr>
     <th>Order Id</th>
     <th>Product
-    <th>Price
-    <th>Customer</th>
-  </tr>
-  <% @orders.each do |order| %>
-    <% order.products.each do |product| %>
-      <tr>
-        <td><%= order.id %></td>
-        <td><%= product.name %></td>
-        <td><%= product.price %></td>
-        <td><%= order.customer.name %></td>
+      <th>Price
+        <th>Customer</th>
       </tr>
-    <% end %>
-  <% end %>
-</table>
+      <%= render(@orders) || "No orders" %>
+    </table>
