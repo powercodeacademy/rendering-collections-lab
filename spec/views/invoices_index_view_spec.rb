@@ -45,7 +45,7 @@ RSpec.describe "invoices_index_view" do
   it "handles empty collections" do
     assign(:invoices, [])
   render template: "invoices/index"
-    expect(rendered).to match(/No Invoices/i)
+    expect(rendered).to match(/No Invoices/)
   end
 
 end
