@@ -16,8 +16,8 @@ partials and render collections.
 
 ## Instructions
 
-We've provided a seed file so you can have some data to play around with –– run
-`rake db:migrate` and `rake db:seed` to seed the database.
+We've provided a seed file so you can have some data to play around with. Run
+`bin/rails db:migrate` and `bin/rails db:seed` to seed the database.
 
 1. Refactor the `invoices/index.html.erb` view to render a collection of
    partials with `_invoice.html.erb`.
