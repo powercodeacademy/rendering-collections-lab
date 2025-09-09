@@ -6,7 +6,7 @@ gem 'os' # for ostruct
 gem 'ostruct'
 gem 'puma', '~> 6.0'
 gem 'rails', '~> 7.1.0'
-gem 'webrick', platforms: %i[mri mingw x64_mingw]
+gem 'webrick', platforms: %i[mri windows]
 
 gem 'pry'
 gem 'pry-nav'
